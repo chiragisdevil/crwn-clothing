@@ -1,5 +1,6 @@
 import './App.css';
 import Homepage from "./pages/homepage/Homepage.jsx";
+import Shop from "./pages/shop/Shop.jsx";
 import {Route, BrowserRouter as Router, Switch, Link} from "react-router-dom";
 
 function App() {
@@ -32,11 +33,12 @@ function App() {
     <Router>
       <Switch>
         <Route exact={true} path="/" component={Homepage} />
-        <Route exact={true} path="/shop/hats" component={Hats} />
-        <Route exact={true} path="/shop/jackets" component={Hats} />
-        <Route exact={true} path="/shop/sneakers" component={Hats} />
-        <Route exact={true} path="/shop/womens" component={Hats} />
-        <Route exact={true} path="/shop/mens" component={Hats} />
+        <Route exact={true} path="/shops" component={Shop} />
+        <Route exact={true} path="/shops/hats" component={Hats} />
+        <Route exact={true} path="/shops/jackets" component={Hats} />
+        <Route exact={true} path="/shops/sneakers" component={Hats} />
+        <Route exact={true} path="/shops/womens" component={Hats} />
+        <Route exact={true} path="/shops/mens" component={Hats} />
         {/* <Route exact={true} path="/topic" component={Topic} />
         <Route exact={true} path="/topic/:topicid" component={TopicPage} /> */}
       </Switch>
