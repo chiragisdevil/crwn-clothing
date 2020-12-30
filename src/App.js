@@ -1,14 +1,10 @@
 import './App.css';
 import Homepage from "./pages/homepage/Homepage.jsx";
 import Shop from "./pages/shop/Shop.jsx";
-import {Route, BrowserRouter as Router, Switch, Link} from "react-router-dom";
+import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
+import Header from "./components/header/Header.jsx";
 
 function App() {
-  function Hats(props){
-    return(
-      <h1>HATS PAGE</h1>
-    )
-  }
   // function Topic(props){
   //   console.log(props);
   //   return(
@@ -30,15 +26,17 @@ function App() {
   // }
   return (   
     <div>
+   
     <Router>
+      <Header />
       <Switch>
         <Route exact={true} path="/" component={Homepage} />
         <Route exact={true} path="/shops" component={Shop} />
-        <Route exact={true} path="/shops/hats" component={Hats} />
-        <Route exact={true} path="/shops/jackets" component={Hats} />
-        <Route exact={true} path="/shops/sneakers" component={Hats} />
-        <Route exact={true} path="/shops/womens" component={Hats} />
-        <Route exact={true} path="/shops/mens" component={Hats} />
+        <Route exact={true} path="/shops/hats" component={Shop} />
+        <Route exact={true} path="/shops/jackets" component={Shop} />
+        <Route exact={true} path="/shops/sneakers" component={Shop} />
+        <Route exact={true} path="/shops/womens" component={Shop} />
+        <Route exact={true} path="/shops/mens" component={Shop} />
         {/* <Route exact={true} path="/topic" component={Topic} />
         <Route exact={true} path="/topic/:topicid" component={TopicPage} /> */}
       </Switch>
