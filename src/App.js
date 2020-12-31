@@ -3,8 +3,32 @@ import Homepage from "./pages/homepage/Homepage.jsx";
 import Shop from "./pages/shop/Shop.jsx";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Header from "./components/header/Header.jsx";
+import SignInSignUp from "./pages/signin-signup/SignInSignUp"
 
 function App() {
+  return (   
+    <div>
+    <Router>
+      <Header />
+      <Switch>
+        <Route exact={true} path="/" component={Homepage} />
+        <Route exact={true} path="/shops" component={Shop} />
+        <Route exact={true} path="/signin" component={SignInSignUp} />
+        <Route exact={true} path="/shops/hats" component={Shop} />
+        <Route exact={true} path="/shops/jackets" component={Shop} />
+        <Route exact={true} path="/shops/sneakers" component={Shop} />
+        <Route exact={true} path="/shops/womens" component={Shop} />
+        <Route exact={true} path="/shops/mens" component={Shop} />
+        {/* <Route exact={true} path="/topic" component={Topic} />
+        <Route exact={true} path="/topic/:topicid" component={TopicPage} /> */}
+      </Switch>
+    </Router>
+    </div>
+
+  );
+}
+
+export default App;
   // function Topic(props){
   //   console.log(props);
   //   return(
@@ -24,26 +48,3 @@ function App() {
   //     <h1>Topic detailed Page {topicid}</h1>
   //   )
   // }
-  return (   
-    <div>
-   
-    <Router>
-      <Header />
-      <Switch>
-        <Route exact={true} path="/" component={Homepage} />
-        <Route exact={true} path="/shops" component={Shop} />
-        <Route exact={true} path="/shops/hats" component={Shop} />
-        <Route exact={true} path="/shops/jackets" component={Shop} />
-        <Route exact={true} path="/shops/sneakers" component={Shop} />
-        <Route exact={true} path="/shops/womens" component={Shop} />
-        <Route exact={true} path="/shops/mens" component={Shop} />
-        {/* <Route exact={true} path="/topic" component={Topic} />
-        <Route exact={true} path="/topic/:topicid" component={TopicPage} /> */}
-      </Switch>
-    </Router>
-    </div>
-
-  );
-}
-
-export default App;
