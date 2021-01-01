@@ -1,15 +1,26 @@
+import React, {useState, useEffect} from 'react';
 import './App.css';
 import Homepage from "./pages/homepage/Homepage.jsx";
 import Shop from "./pages/shop/Shop.jsx";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Header from "./components/header/Header.jsx";
-import SignInSignUp from "./pages/signin-signup/SignInSignUp"
+import SignInSignUp from "./pages/signin-signup/SignInSignUp";
+import {auth} from "./firebase/firebase.util";
 
 function App() {
+  const [user,setUser] = useState({});
+
+  useEffect( () => {
+      const unsubscribeFromAuth = auth.onAuthStateChanged((curUser) => setUser(curUser));
+      
+      return function handleUserEndSession(){
+        unsubscribeFromAuth();
+      }
+    });
   return (   
     <div>
     <Router>
-      <Header />
+      <Header currentUser={user}/>
       <Switch>
         <Route exact={true} path="/" component={Homepage} />
         <Route exact={true} path="/shops" component={Shop} />
@@ -19,15 +30,11 @@ function App() {
         <Route exact={true} path="/shops/sneakers" component={Shop} />
         <Route exact={true} path="/shops/womens" component={Shop} />
         <Route exact={true} path="/shops/mens" component={Shop} />
-        {/* <Route exact={true} path="/topic" component={Topic} />
-        <Route exact={true} path="/topic/:topicid" component={TopicPage} /> */}
       </Switch>
     </Router>
     </div>
-
   );
 }
-
 export default App;
   // function Topic(props){
   //   console.log(props);

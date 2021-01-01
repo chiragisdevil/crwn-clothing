@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import FormInput from "../form-input/FormInput";
 import "./signin.scss";
 import Button from "../button/Button";
+import {signInWithGoogle} from "../../firebase/firebase.util.js";
 
 function SignIn(){
     const [signInDetails, setSignInDetails] = useState(
@@ -55,7 +56,10 @@ function SignIn(){
                     value={signInDetails.password}
                 />
                 {/* <input onChange={handleChange} type="password" name="password" value={signInDetails.password} required/> */}
-                <Button type="submit">Submit</Button>
+                <div className="buttons">
+                    <Button type="submit">Sign In</Button>
+                    <Button onClick={signInWithGoogle} isGoogleSignIn={true}>Sign In with Google</Button>
+                </div>
             </form>
         </div>
     )

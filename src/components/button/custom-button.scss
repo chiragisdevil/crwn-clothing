@@ -13,6 +13,7 @@
     font-weight: bolder;
     border: none;
     cursor: pointer;
+    // margin-left: 5px;
   
     &:hover {
       background-color: white;
@@ -21,3 +22,13 @@
     }
   }
   
+  .google-sign-in{
+    background-color: #4285F4;
+    color: white;
+    
+    &:hover{
+      background-color: #11469b;
+      border: none;
+      color: white;
+    }
+  }
