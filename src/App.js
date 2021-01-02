@@ -5,9 +5,14 @@ import Shop from "./pages/shop/Shop.jsx";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Header from "./components/header/Header.jsx";
 import SignInSignUp from "./pages/signin-signup/SignInSignUp";
-import {auth} from "./firebase/firebase.util";
+import {auth, firestore} from "./firebase/firebase.util";
 
 function App() {
+
+  console.log(firestore.collection('users').doc('158Zvglu9xFNAWe4WOlR').collection('cart').doc('EAlC6xFfNBcMHv1xKX3d'));
+  console.log(firestore.doc('/users/158Zvglu9xFNAWe4WOlR/cart/EAlC6xFfNBcMHv1xKX3d'));
+  console.log(firestore.collection('/users/158Zvglu9xFNAWe4WOlR/cart'));
+  
   const [user,setUser] = useState({});
 
   useEffect( () => {
