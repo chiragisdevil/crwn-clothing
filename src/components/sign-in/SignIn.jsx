@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import FormInput from "../form-input/FormInput";
 import "./signin.scss";
 import Button from "../button/Button";
-import {signInWithGoogle} from "../../firebase/firebase.util.js";
+import {auth, signInWithGoogle} from "../../firebase/firebase.util.js";
 
 function SignIn(){
     const [signInDetails, setSignInDetails] = useState(
@@ -22,14 +22,19 @@ function SignIn(){
     }
 
     function handleSubmit(event){
-        console.log("inside submit");
         event.preventDefault();
-        return(
+        const {email,password} = signInDetails;
+        
+        try{
+            const user = auth.signInWithEmailAndPassword(email, password);
+        console.log(user);
             setSignInDetails({
                 email:"",
                 password:""
             })
-        )
+        } catch (err){
+            console.log(err.message);
+        }
     }
   
     return(
@@ -43,6 +48,7 @@ function SignIn(){
                 <FormInput
                     handleChange={handleChange}
                     label="email" 
+                    type="email"
                     signInDetails={signInDetails}
                     value={signInDetails.email}
                 />
@@ -52,6 +58,7 @@ function SignIn(){
                 <FormInput
                     handleChange={handleChange}
                     label="password" 
+                    type="password"
                     signInDetails={signInDetails}
                     value={signInDetails.password}
                 />

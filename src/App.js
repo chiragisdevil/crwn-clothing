@@ -5,24 +5,37 @@ import Shop from "./pages/shop/Shop.jsx";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Header from "./components/header/Header.jsx";
 import SignInSignUp from "./pages/signin-signup/SignInSignUp";
-import {auth, firestore} from "./firebase/firebase.util";
+import {auth, createUserProfileDocument} from "./firebase/firebase.util";
 
-function App() {
-
-  console.log(firestore.collection('users').doc('158Zvglu9xFNAWe4WOlR').collection('cart').doc('EAlC6xFfNBcMHv1xKX3d'));
-  console.log(firestore.doc('/users/158Zvglu9xFNAWe4WOlR/cart/EAlC6xFfNBcMHv1xKX3d'));
-  console.log(firestore.collection('/users/158Zvglu9xFNAWe4WOlR/cart'));
-  
+function App() { 
   const [user,setUser] = useState({});
 
   useEffect( () => {
-      const unsubscribeFromAuth = auth.onAuthStateChanged((curUser) => setUser(curUser));
-      
+      const unsubscribeFromAuth = auth.onAuthStateChanged(async (curUser) => {
+          if (curUser){
+          const userReference = await createUserProfileDocument(curUser);
+          console.log("inside"+userReference.displayName);
+          userReference.onSnapshot((snapshot) => {
+            const snapshotData = snapshot.data();
+            
+            setUser({
+              currentUser:{
+                id:snapshot.id, 
+                ...snapshotData
+              }
+            })
+          });
+        } else {
+          setUser(curUser);
+        }
+    });
+
       return function handleUserEndSession(){
         unsubscribeFromAuth();
       }
-    });
-  return (   
+      // eslint-disable-next-line
+    },[]);
+  return (    
     <div>
     <Router>
       <Header currentUser={user}/>
