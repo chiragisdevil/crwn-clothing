@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Homepage from "./pages/homepage/Homepage.jsx";
 import Shop from "./pages/shop/Shop.jsx";
@@ -6,27 +6,28 @@ import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import Header from "./components/header/Header.jsx";
 import SignInSignUp from "./pages/signin-signup/SignInSignUp";
 import {auth, createUserProfileDocument} from "./firebase/firebase.util";
+import {useDispatch} from "react-redux";
+import {setCurrentUser} from "./redux/user/user.actions";
 
 function App() { 
-  const [user,setUser] = useState({});
-
+  const dispatch = useDispatch();
   useEffect( () => {
       const unsubscribeFromAuth = auth.onAuthStateChanged(async (curUser) => {
+        
           if (curUser){
           const userReference = await createUserProfileDocument(curUser);
-          console.log("inside"+userReference.displayName);
+          
           userReference.onSnapshot((snapshot) => {
             const snapshotData = snapshot.data();
-            
-            setUser({
-              currentUser:{
-                id:snapshot.id, 
-                ...snapshotData
-              }
-            })
+              
+            dispatch(setCurrentUser({
+                  id:snapshot.id, 
+                  ...snapshotData
+                }
+            ));
           });
         } else {
-          setUser(curUser);
+          dispatch(setCurrentUser(null));
         }
     });
 
@@ -34,25 +35,34 @@ function App() {
         unsubscribeFromAuth();
       }
       // eslint-disable-next-line
-    },[]);
+  },[]);
   return (    
     <div>
     <Router>
-      <Header currentUser={user}/>
+      <Header />
       <Switch>
         <Route exact={true} path="/" component={Homepage} />
-        <Route exact={true} path="/shops" component={Shop} />
-        <Route exact={true} path="/signin" component={SignInSignUp} />
-        <Route exact={true} path="/shops/hats" component={Shop} />
-        <Route exact={true} path="/shops/jackets" component={Shop} />
-        <Route exact={true} path="/shops/sneakers" component={Shop} />
-        <Route exact={true} path="/shops/womens" component={Shop} />
-        <Route exact={true} path="/shops/mens" component={Shop} />
+        <Route exact={true} path="/crwn-clothing" component={Homepage} />
+        <Route exact={true} path="/crwn-clothing/shops" component={Shop} />
+        <Route exact={true} path="/crwn-clothing/signin" component={SignInSignUp} />
+        <Route exact={true} path="/crwn-clothing/shops/hats" component={Shop} />
+        <Route exact={true} path="/crwn-clothing/shops/jackets" component={Shop} />
+        <Route exact={true} path="/crwn-clothing/shops/sneakers" component={Shop} />
+        <Route exact={true} path="/crwn-clothing/shops/womens" component={Shop} />
+        <Route exact={true} path="/crwn-clothing/shops/mens" component={Shop} />
       </Switch>
     </Router>
     </div>
   );
 }
+
+
+
+// const mapDispatchToProps = (dispatch) => ({
+//   setCurrentUser: user => dispatch(setCurrentUser(user))
+// })
+
+
 export default App;
   // function Topic(props){
   //   console.log(props);
