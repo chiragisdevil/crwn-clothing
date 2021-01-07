@@ -3,13 +3,14 @@ import './App.css';
 import Homepage from "./pages/homepage/Homepage.jsx";
 import Shop from "./pages/shop/Shop.jsx";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import Header from "./components/header/Header.jsx";
 import SignInSignUp from "./pages/signin-signup/SignInSignUp";
 import {auth, createUserProfileDocument} from "./firebase/firebase.util";
-import {useDispatch} from "react-redux";
+import {useDispatch, connect} from "react-redux";
 import {setCurrentUser} from "./redux/user/user.actions";
 
-function App() { 
+function App({currentUser}) { 
   const dispatch = useDispatch();
   useEffect( () => {
       const unsubscribeFromAuth = auth.onAuthStateChanged(async (curUser) => {
@@ -42,9 +43,9 @@ function App() {
       <Header />
       <Switch>
         <Route exact={true} path="/" component={Homepage} />
-        <Route exact={true} path="/crwn-clothing" component={Homepage} />
+        <Route exact={true} path="/crwn-clothing/" component={Homepage} />
         <Route exact={true} path="/crwn-clothing/shops" component={Shop} />
-        <Route exact={true} path="/crwn-clothing/signin" component={SignInSignUp} />
+        <Route exact={true} path="/crwn-clothing/signin" render={() => currentUser? <Redirect to="/crwn-clothing/" />: <SignInSignUp />} />
         <Route exact={true} path="/crwn-clothing/shops/hats" component={Shop} />
         <Route exact={true} path="/crwn-clothing/shops/jackets" component={Shop} />
         <Route exact={true} path="/crwn-clothing/shops/sneakers" component={Shop} />
@@ -56,14 +57,11 @@ function App() {
   );
 }
 
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser
+})
 
-
-// const mapDispatchToProps = (dispatch) => ({
-//   setCurrentUser: user => dispatch(setCurrentUser(user))
-// })
-
-
-export default App;
+export default connect(mapStateToProps)(App);
   // function Topic(props){
   //   console.log(props);
   //   return(
