@@ -18,6 +18,7 @@ function CollectionPreview(props){
                 {filteredItems.map((item) => 
                     <CollectionItem 
                         key = {item.id}
+                        id = {item.id}
                         name = {item.name}
                         imageUrl = {item.imageUrl}
                         price = {item.price}

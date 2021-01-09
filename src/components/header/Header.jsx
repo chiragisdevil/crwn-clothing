@@ -28,9 +28,8 @@ function Header(props){
 }
 function mapStateToProps(state){
         return ({
-            cart: state.cart.cart,
+            cart: state.cart,
             currentUser: state.user.currentUser
         })
-    
 }
 export default connect(mapStateToProps)(Header);

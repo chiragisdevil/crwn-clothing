@@ -6,7 +6,7 @@ import {connect, useDispatch} from "react-redux";
 
 function CartIcon({cart}){
     const dispatch = useDispatch();
-
+    const {cartItems} = cart;
     function updateCartHiddenFlag(){
         const {cartHidden} = cart;
         const swapCartHidden = !cartHidden;
@@ -21,15 +21,13 @@ function CartIcon({cart}){
     return(
         <div onClick={updateCartHiddenFlag} className="cart-icon">
             <ShoppingCartIcon className ="shopping-icon" />
-            <span className="item-count">0</span>
+            <span className="item-count">{cartItems.length}</span>
         </div>
     )
 }
-
 function mapStateToProps(state){
     return({
-            cart: state.cart.cart
-        
+            cart: state.cart
     })
 }
 export default connect(mapStateToProps)(CartIcon);
