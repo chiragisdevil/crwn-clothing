@@ -10,6 +10,7 @@ function CollectionItem(props){
 
     function addToCart(){
         dispatch(setCartItem({
+            key: props.id, 
             id: props.id,
             imageUrl: props.imageUrl,
             name: props.name,
