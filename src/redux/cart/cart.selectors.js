@@ -17,3 +17,9 @@ export const selectCartItemCount =
             (cartItems) => 
                 cartItems.reduce((aggregator, cartItem) => (aggregator + cartItem.quantity), 0 )
         )
+
+export const selectCartHidden = 
+            createSelector(
+                [selectCart],
+                (cart) => cart.cartHidden
+            )
