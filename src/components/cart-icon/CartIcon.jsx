@@ -3,17 +3,16 @@ import "./cart-icon.scss";
 import {ReactComponent as ShoppingCartIcon} from "../../assets/shopping-bag.svg";
 import {setCartHidden} from "../../redux/cart/cart-actions";
 import {connect, useDispatch} from "react-redux";
+import {selectCartItemCount} from "../../redux/cart/cart.selectors"
 
-function CartIcon({cart}){
+function CartIcon({cartCount, cartHidden}){
     const dispatch = useDispatch();
-    const {cartItems} = cart;
+
     function updateCartHiddenFlag(){
-        const {cartHidden} = cart;
-        const swapCartHidden = !cartHidden;
         return(
             dispatch(
                 setCartHidden({  
-                       cartHidden: swapCartHidden
+                       cartHidden: !cartHidden
                 })
             )
         )
@@ -21,13 +20,17 @@ function CartIcon({cart}){
     return(
         <div onClick={updateCartHiddenFlag} className="cart-icon">
             <ShoppingCartIcon className ="shopping-icon" />
-            <span className="item-count">{cartItems.length}</span>
+            <span className="item-count">{cartCount}</span>
         </div>
     )
 }
 function mapStateToProps(state){
+    const {cart:{cartHidden}} = state;
+    const cartCount = selectCartItemCount(state);
+    // cartItems.reduce((aggregator,cartItem)=>(aggregator = aggregator + cartItem.quantity),0); 
     return({
-            cart: state.cart
+        cartCount: cartCount,
+        cartHidden: cartHidden
     })
 }
 export default connect(mapStateToProps)(CartIcon);

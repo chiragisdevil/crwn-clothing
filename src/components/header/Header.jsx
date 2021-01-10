@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import "./header.scss"
 import CartDropDown from "../cart-dropdown/CartDropDown";
 import {ReactComponent as Logo} from "../../assets/crown.svg";
-import CartIcon from "../shopping-cart-icon/CartIcon";
+import CartIcon from "../cart-icon/CartIcon";
 import { auth } from "../../firebase/firebase.util";
 import {connect} from "react-redux";
 

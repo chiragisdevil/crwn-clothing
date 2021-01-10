@@ -9,7 +9,7 @@ function CartItem(props){
             <img src={imageUrl} alt="cart item" />
             <div className="item-details">
                 <span className="name">Name: {name}</span>
-                <span className="price">Price: {price} x {quantity} </span>
+                <span className="price">Price: ${price} x {quantity}</span>
             </div>
         </div>
     )
