@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import Homepage from "./pages/homepage/Homepage.jsx";
 import Shop from "./pages/shop/Shop.jsx";
+import CheckoutPage from "./pages/checkout/Checkout.jsx";
 import {Route, BrowserRouter as Router, Switch} from "react-router-dom";
 import {Redirect} from "react-router-dom";
 import Header from "./components/header/Header.jsx";
@@ -47,6 +48,7 @@ function App({currentUser}) {
         <Route exact={true} path="/" component={Homepage} />
         <Route exact={true} path="/crwn-clothing/" component={Homepage} />
         <Route exact={true} path="/crwn-clothing/shops" component={Shop} />
+        <Route exact={true} path="/crwn-clothing/checkout" component={CheckoutPage} />
         <Route exact={true} path="/crwn-clothing/signin" render={() => currentUser? <Redirect to="/crwn-clothing/" />: <SignInSignUp />} />
         <Route exact={true} path="/crwn-clothing/shops/hats" component={Shop} />
         <Route exact={true} path="/crwn-clothing/shops/jackets" component={Shop} />

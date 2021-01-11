@@ -1,17 +1,29 @@
 import React from "react";
 import Button from "../button/Button";
 import "./cart-dropdown.scss";
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 import CartItem from "../cart-item/CartItem";
-import {selectCartItems} from "../../redux/cart/cart.selectors"
+import {selectCartItems} from "../../redux/cart/cart.selectors";
+import {withRouter} from "react-router-dom";
+import {setCartHidden} from "../../redux/cart/cart-actions";
 
-function CartDropDown(props){
-    const {cartItems} = props;
+function CartDropDown({cartItems, history}){
+    const dispatch = useDispatch()
     return (
         <div className="cart-dropdown">
-            <div className="cart-items" />
-                {cartItems.map((cartItem) => <CartItem key={cartItem.key} cartitem={cartItem}/>)}
-                <Button >CHECK OUT</Button>
+            <div className="cart-items">
+                {   (cartItems.length===0)
+                    ? <span className="cart-empty">Your cart is empty</span>
+                    : cartItems.map((cartItem) => <CartItem key={cartItem.key} cartitem={cartItem}/>)}
+                <Button onClick={
+                    ()=>{
+                        history.push("/crwn-clothing/checkout");
+                        dispatch(setCartHidden({
+                            cartHidden: true
+                        }));
+                    }               
+                }>CHECK OUT</Button>
+            </div>
         </div>
     )
 }
@@ -19,8 +31,7 @@ function CartDropDown(props){
 function mapStateToProps(state){
     return({
         cartItems: selectCartItems(state)
-        // state.cart.cartItems
     })
 }
 
-export default connect(mapStateToProps)(CartDropDown);
+export default withRouter(connect(mapStateToProps)(CartDropDown));
