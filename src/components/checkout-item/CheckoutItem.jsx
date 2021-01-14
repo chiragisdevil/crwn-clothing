@@ -1,7 +1,7 @@
 import React from "react";
 import "./checkout-item.scss";
 import {useDispatch} from "react-redux";
-import {removeCartItem} from "../../redux/cart/cart-actions";
+import {setCartItem, removeCartItem, removeSingleCartItem} from "../../redux/cart/cart-actions";
 
 function CheckoutItem({cartItem}){
     const {name, imageUrl, price, quantity} = cartItem;
@@ -12,7 +12,11 @@ function CheckoutItem({cartItem}){
                 <img src={imageUrl} alt="Item" />
             </div>
             <span className="name">{name}</span>
-            <span className="quantity">{quantity}</span>
+            <div className="quantity">
+                <span className="arrowleft" onClick={()=> dispatch(removeSingleCartItem(cartItem))}>&#10094;</span>
+                <span >{quantity}</span>
+                <span className="arrowright" onClick={()=> dispatch(setCartItem(cartItem))}>&#10095;</span>
+            </div>
             <span className="price">{price}</span>
             <span onClick={() => dispatch(removeCartItem(cartItem))} className="remove-button">&#10005;</span>
         </div>
